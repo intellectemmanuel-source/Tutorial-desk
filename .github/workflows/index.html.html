@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tutorial Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e9eff2;--panel:#fff;--ink:#1c2a31;--mute:#44575f;--line:#b9c7ce;--accent:#0f5e66;--accent-ink:#fff;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#141c20;--panel:#1b262c;--ink:#e6eef1;--mute:#93a6af;--line:#2d3c44;--accent:#58b4bd;--accent-ink:#0f1a1e;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 "Source Serif 4",Georgia,serif}
+h1,h2,h3,.ui{font-family:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif}
+header{padding:56px 24px 0;max-width:1040px;margin:0 auto}
+h1{font-size:clamp(2.2rem,6vw,4rem);line-height:1.02;margin:0 0 12px;font-weight:800;letter-spacing:-.02em}
+header p{max-width:52ch;color:var(--mute);margin:0 0 28px}
+.strip{height:14px;max-width:1040px;margin:0 auto;background:linear-gradient(90deg,#3b3b3b,#b8b8b8 8%,#f1ead0 14%,#e8c53a 22%,#d9772b 30%,#b5262f 38%,#5a2a8a 46%,#2c5fb3 54%,#3aa56b 62%,#e5d34b 70%,#e08a8a 80%,#6fb5c4 90%,#d9e6c9)}
+html{scroll-padding-top:64px}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+#toc{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+#toc>div{max-width:1040px;margin:0 auto;padding:8px 18px;display:flex;gap:4px;overflow-x:auto}
+#toc a{font:600 .95rem "Bricolage Grotesque",system-ui,sans-serif;padding:7px 12px;border-radius:8px;color:var(--ink);text-decoration:none;white-space:nowrap}
+#toc a:hover{background:var(--panel)}
+#toc a.cta{background:var(--accent);color:var(--accent-ink)}
+#apply{max-width:1040px;margin:0 auto;padding:8px 24px 40px}
+#apply h2{font-size:1.5rem;margin:0 0 4px}
+#apply>p{margin:0 0 14px;color:var(--mute);font-size:.95rem;max-width:60ch}
+.af{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px;max-width:820px}
+.af label,.af legend{font:600 .95rem "Bricolage Grotesque",system-ui,sans-serif;display:block}
+.af input:not([type=checkbox]),.af select{display:block;width:100%;margin-top:4px;font:400 1rem "Source Serif 4",Georgia,serif;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.af fieldset{grid-column:1/-1;border:1px solid var(--line);border-radius:8px;margin:0;padding:10px 14px}
+.af .chk{display:flex;gap:8px;align-items:center;font-weight:500;padding:4px 0}
+.af .full{grid-column:1/-1}
+.af .tot{font:600 1.1rem "Bricolage Grotesque",system-ui,sans-serif}
+.af .tot output{font-weight:800;font-size:1.6rem;margin-left:6px}
+.paybox{background:var(--bg);border-left:4px solid var(--accent);border-radius:4px;padding:10px 14px;font:500 1rem "Bricolage Grotesque",system-ui,sans-serif}
+.paybox p{margin:4px 0 0}
+.af .pay{font:700 1rem "Bricolage Grotesque",system-ui,sans-serif;padding:12px 20px;border-radius:8px;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+.af .msg{margin:0;color:#b3261e;font-size:.95rem}
+@media(prefers-color-scheme:dark){.af .msg{color:#ff8a80}}
+.done h3{margin:0 0 6px;font-size:1.4rem}
+.done p{margin:0 0 8px}
+#faq,#contact{max-width:1040px;margin:0 auto;padding:8px 24px 32px}
+#faq h2,#contact h2{font-size:1.5rem;margin:0 0 10px}
+#faq details{border-top:1px solid var(--line);padding:10px 0;max-width:70ch}
+#faq details:last-child{border-bottom:1px solid var(--line)}
+#faq summary{cursor:pointer;font:600 1.05rem "Bricolage Grotesque",system-ui,sans-serif}
+#faq details p{margin:8px 0 2px;color:var(--mute);font-size:1rem;line-height:1.55}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px;max-width:620px}
+.cards a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;color:var(--ink);text-decoration:none}
+.cards a:hover{border-color:var(--accent)}
+.cards small{display:block;color:var(--mute);font:500 .9rem "Bricolage Grotesque",system-ui,sans-serif}
+.cards b{font:700 1.2rem "Bricolage Grotesque",system-ui,sans-serif;word-break:break-all}
+#offer{max-width:1040px;margin:0 auto;padding:28px 24px 4px}
+#offer h2{font-size:1.5rem;margin:0 0 14px}
+.offer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:20px}
+.offer-grid div{border-top:3px solid var(--accent);padding-top:10px}
+.offer-grid h3{font-size:1.1rem;margin:0 0 4px}
+.offer-grid p{margin:0;font-size:1rem;line-height:1.55;color:var(--mute)}
+nav{max-width:1040px;margin:0 auto;padding:20px 24px 0;display:flex;gap:8px;flex-wrap:wrap}
+nav a.soon{font:600 .95rem "Bricolage Grotesque",system-ui,sans-serif;padding:9px 14px;border-radius:8px;border:1px dashed var(--mute);color:var(--mute);text-decoration:none}
+nav a.soon:hover{color:var(--ink);border-color:var(--ink)}
+nav button{font:600 .95rem "Bricolage Grotesque",system-ui,sans-serif;padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+nav button[aria-selected=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+main{max-width:1040px;margin:0 auto;padding:24px}
+.course h2{margin:0 0 6px;font-size:1.5rem}
+.course p{margin:0 0 16px;color:var(--mute);font-size:.95rem;line-height:1.5}
+.list{list-style:none;padding:0;margin:0;border-left:3px solid var(--line)}
+.list button{display:block;width:100%;text-align:left;background:none;border:0;border-left:3px solid transparent;margin-left:-3px;padding:10px 14px;color:var(--ink);font:500 1rem "Bricolage Grotesque",system-ui,sans-serif;cursor:pointer}
+.list button small{display:block;color:var(--mute);font-weight:400}
+.list button[aria-current=true]{border-left-color:var(--accent);background:var(--panel)}
+article{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:32px;max-width:70ch}
+article h3{font-size:1.9rem;line-height:1.15;margin:0 0 6px}
+.meta{color:var(--mute);font:.9rem "Bricolage Grotesque",system-ui,sans-serif;margin:0 0 20px}
+.key{border-left:4px solid var(--accent);padding:6px 16px;margin:20px 0;background:var(--bg);font-family:"Bricolage Grotesque",system-ui,sans-serif}
+.draft{font-style:italic;color:var(--mute)}
+#sched{max-width:1040px;margin:0 auto;padding:0 24px 24px}
+#sched h2{font-size:1.5rem;margin:0 0 4px}
+#sched p{margin:0 0 12px;color:var(--mute);font-size:.95rem}
+.tw{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.95rem;line-height:1.45}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 .95rem "Bricolage Grotesque",system-ui,sans-serif;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600;white-space:nowrap}
+#fees{max-width:1040px;margin:0 auto;padding:8px 24px 24px}
+#fees h2{font-size:1.5rem;margin:0 0 4px}
+#fees>p{margin:0 0 14px;color:var(--mute);font-size:.95rem}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:16px;max-width:1040px}
+.plan{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.plan.promo{border-color:var(--accent);border-width:2px}
+.plan h3{margin:0;font-size:1rem;color:var(--mute)}
+.plan .amt{font:800 2.2rem "Bricolage Grotesque",system-ui,sans-serif;margin:2px 0}
+.plan p{margin:0;font-size:.95rem;color:var(--mute)}
+.calc{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;font:500 1rem "Bricolage Grotesque",system-ui,sans-serif}
+.calc select{font:inherit;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.calc output{font-weight:700}
+.outline{margin-top:28px}
+.outline h3{font-size:1.15rem;margin:0 0 8px}
+.outline details{border-top:1px solid var(--line);padding:8px 0}
+.outline summary{cursor:pointer;font:600 1rem "Bricolage Grotesque",system-ui,sans-serif}
+.outline ol{margin:8px 0 0;padding:0;list-style:none;font-size:.95rem;line-height:1.5}
+.outline li{padding:4px 0;color:var(--mute)}
+.outline li b{color:var(--ink);font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;margin-right:6px}
+.pager{display:flex;justify-content:space-between;margin-top:28px}
+.pager button{font:600 .95rem "Bricolage Grotesque",system-ui,sans-serif;padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
+.pager button:disabled{opacity:.35;cursor:default}
+footer{max-width:1040px;margin:0 auto;padding:12px 24px 48px;color:var(--mute);font-size:.9rem}
+@media(prefers-reduced-motion:no-preference){.strip{background-size:200% 100%;animation:sweep 1.4s ease-out 1}@keyframes sweep{from{background-position:100% 0;opacity:.4}to{background-position:0 0;opacity:1}}}
+body{overflow-wrap:break-word}
+.af fieldset{min-width:0}
+@media(max-width:640px){
+body{font-size:17px}
+header{padding:36px 16px 0}
+nav{padding:16px 16px 0}
+main,#offer,#sched,#fees,#apply,#faq,#contact,footer{padding-left:16px;padding-right:16px}
+#toc>div{padding:6px 10px}
+#toc a{padding:10px 12px}
+.af{padding:16px}
+.af .chk{padding:8px 0}
+.af .chk input{width:20px;height:20px}
+.plan .amt{font-size:1.9rem}
+.calc{flex-direction:column;align-items:flex-start}
+th,td{padding:8px 10px}
+}
+
+/* ---- professional look: bands, contrast, cards ---- */
+:root{--hero:#0e1d26;--hero-ink:#f3f8f9;--hero-mute:#b4c7ce;--sh:0 1px 2px rgba(16,32,42,.12),0 10px 26px -14px rgba(16,32,42,.35)}
+@media(prefers-color-scheme:dark){:root{--hero:#091217}}
+header,.courses-head,nav#tabs,main,#sched,#offer,#fees,#apply,#faq,#contact,footer{max-width:none;margin:0;padding-inline:max(24px,calc((100% - 1040px)/2))}
+#toc>div{max-width:none;margin:0;padding-inline:max(18px,calc((100% - 1040px)/2 - 6px))}
+.strip{max-width:none;height:10px}
+header{background:var(--hero);color:var(--hero-ink);padding-block:64px 52px}
+header h1{color:var(--hero-ink);font-size:clamp(2.6rem,7vw,4.6rem)}
+header p{color:var(--hero-mute);font-size:1.2rem;max-width:46ch;margin:0 0 26px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font:700 1rem "Bricolage Grotesque",system-ui,sans-serif;padding:13px 22px;border-radius:8px;text-decoration:none;background:#f0b429;color:#10202a;border:2px solid #f0b429}
+.btn.ghost{background:transparent;color:var(--hero-ink);border-color:var(--hero-mute)}
+.btn:hover{filter:brightness(1.1)}
+.facts{list-style:none;padding:0;margin:30px 0 0;display:flex;gap:10px 28px;flex-wrap:wrap;color:var(--hero-mute);font:500 1rem "Bricolage Grotesque",system-ui,sans-serif}
+.facts li{border-left:3px solid #f0b429;padding-left:10px}
+#toc{box-shadow:0 8px 18px -14px rgba(0,0,0,.5)}
+#offer,#fees,#faq{background:var(--panel);padding-block:44px}
+.courses-head,nav#tabs,main,#sched,#apply{background:var(--bg)}
+.courses-head{padding-block:44px 0}
+nav#tabs{padding-block:14px 0}
+main{padding-block:20px 44px}
+#sched{padding-block:0 44px}
+#sched:empty{display:none}
+#apply{padding-block:44px}
+#contact{background:var(--hero);color:var(--hero-ink);padding-block:44px}
+footer{background:var(--hero);color:var(--hero-mute);padding-block:0 28px}
+.courses-head h2,#offer h2,#fees h2,#apply h2,#faq h2,#contact h2{font-size:1.9rem;font-weight:800;letter-spacing:-.01em;margin:0 0 16px}
+.course{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:28px;box-shadow:var(--sh)}
+.plan{background:var(--bg);box-shadow:var(--sh)}
+.plan.promo{background:var(--accent);color:var(--accent-ink)}
+.plan.promo h3,.plan.promo p{color:var(--accent-ink);opacity:.92}
+.calc select{background:var(--bg)}
+.af,.tw{box-shadow:var(--sh)}
+.af .pay{box-shadow:var(--sh);padding:14px 22px;font-size:1.05rem}
+.offer-grid h3{font-size:1.2rem}
+@media(max-width:640px){
+header,.courses-head,nav#tabs,main,#sched,#offer,#fees,#apply,#faq,#contact,footer{padding-inline:16px}
+header{padding-block:40px 36px}
+#offer,#fees,#faq,#apply,#contact{padding-block:32px}
+.course{padding:18px}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Tutorial Desk</h1>
+  <p>Lectures, study strategies and past-question practice for your courses.</p>
+  <div class="hero-cta"><a class="btn" href="#apply">Apply now</a><a class="btn ghost" href="#courses">View courses</a></div>
+  <ul class="facts" id="facts"></ul>
+</header>
+<div class="strip" aria-hidden="true"></div>
+<div id="toc" role="navigation" aria-label="On this page"><div>
+  <a href="#offer">What we offer</a><a href="#courses">Courses</a><a href="#sched" id="toc-sched">Schedule</a><a href="#fees">Fees</a><a href="#apply" class="cta">Apply</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+</div></div>
+<section id="offer">
+  <h2>What we offer</h2>
+  <div class="offer-grid">
+    <div><h3>We lecture the course</h3><p>We teach each course and break every topic into small steps, so you understand the concept instead of memorising it.</p></div>
+    <div><h3>Strategies for learning</h3><p>You get practical tools for studying and solving problems, so your learning improves and stays with you.</p></div>
+    <div><h3>Exam preparation</h3><p>We prepare you for your interim assessment and final exam by solving past questions with you.</p></div>
+  </div>
+</section>
+<span id="courses"></span>
+<div class="courses-head"><h2>Courses</h2></div>
+<nav id="tabs" role="tablist" aria-label="Courses"></nav>
+<main>
+  <section class="course" id="course"></section>
+  </main>
+<section id="sched"></section>
+<section id="fees"></section>
+<section id="apply"></section>
+<section id="faq"></section>
+<section id="contact"></section>
+<footer>&copy; 2026 Tutorial Desk</footer>
+
+<script>
+/* Content lives in this one array. When Sanity is added, each course
+   becomes a document and this array is replaced by a fetch from Sanity. */
+/* TO ADD A COURSE: copy one whole {slug:...} block below, paste it at the end of
+   the list (add a comma after the previous block) and change slug, title, blurb and
+   its outline or schedule. The tabs, Apply form, fee calculator and FAQ update by themselves. */
+const COURSES=[
+{slug:"optical-mineralogy",title:"Optical Mineralogy",blurb:"Identify minerals in thin section with the polarising microscope."},
+{slug:"geological-structures-and-maps",title:"Geological Structures and Maps",blurb:"Read and construct geological maps and cross-sections.",outline:[
+ {part:"Structural Geology",weeks:["Introduction and classification of structures and primary structures","Introduction to secondary structures and structural analysis","Introduction to structural analysis and the concept of petrofabrics","Introduction to fractures and joints","Introduction to faults and folds","Introduction to cleavages, foliation and lineation"]},
+ {part:"Map Interpretation",weeks:["Construction of contour maps and topographic profiles","Horizontal and dipping strata","Horizontal and dipping strata","Three points problem","Unconformities","Faults and folds"]}
+]},
+{slug:"quantitative-geology",title:"Quantitative Geology",blurb:"Numbers, units and models for geological problems."},
+{slug:"elementary-statistical-methods",title:"Elementary Statistical Methods",blurb:"Describe data and test ideas with basic statistics.",venue:"STAT 002/202",schedule:[
+ ["1","Review of the Standard Normal, t, F and Chi-Square distributions","","Chapter 4: 4.6–4.10"],
+ ["1","Statistical inference: introduction and definitions of basic concepts in estimation and hypothesis testing","Homework 1","Chapter 5: 5.1–5.6"],
+ ["2","Inferences about one population mean and one population proportion: Z-test and t-tests","","Chapter 5: 5.7–5.9"],
+ ["3","Comparison of two population means and proportions: independent sample t-test and paired sample t-test","Homework 2","Chapter 6: 6.1–6.2"],
+ ["4","Comparison of two population means and proportions: independent sample t-test and paired sample t-test","","Chapter 6: 6.3–6.6"],
+ ["6","Comparison of three or more population means: one-way analysis of variance (ANOVA)","","Chapter 7"],
+ ["7","Comparison of three or more population means: one-way analysis of variance (ANOVA)","","Chapter 8"],
+ ["7","Comparison of three or more population means: two-way analysis of variance (ANOVA)","Homework 3","Chapter 8"],
+ ["8","Revision and interim assessment","Interim assessment",""],
+ ["8","Simple linear regression (SLR); curve fitting by the method of least squares. Regression coefficients and their relationship to the coefficient of correlation. Coefficient of determination (CD). Computational procedures","","Chapter 11: 11.1, 11.2, 11.3, 11.4, 11.7"],
+ ["9","Analysis of variance for SLR. Interpretation of component sums of squares and its relationship with CD","Homework 4","Chapter 10: 10.1–10.4"],
+ ["10","Analysis of categorical data; goodness of fit tests and chi-square","Homework 5","Chapter 8"]
+]},
+{slug:"phys143",title:"PHYS143",blurb:"Lessons for PHYS143. Topics to be added."}
+];
+
+const $=id=>document.getElementById(id);
+let ci=0,started=false;
+function load(){const h=location.hash.slice(1);const i=COURSES.findIndex(c=>c.slug===h);if(i<0&&started)return;ci=i>=0?i:0;started=true;render()}
+function render(){
+  const c=COURSES[ci];
+  $("tabs").innerHTML=COURSES.map((x,i)=>`<button role="tab" aria-selected="${i===ci}" data-c="${i}">${x.title}</button>`).join("")+`<a class="soon" href="#apply">More courses coming soon</a>`;
+  $("course").innerHTML=`<h2>${c.title}</h2><p>${c.blurb}</p>${c.outline?`<div class="outline"><h3>Course objectives</h3>${c.outline.map((p,i)=>`<details ${i===0?"open":""}><summary>${p.part}</summary><ol>${p.weeks.map((w,n)=>`<li><b>Week ${n+1}</b>${w}</li>`).join("")}</ol></details>`).join("")}</div>`:""}${c.outline||c.schedule?"":"<p>Course objectives and schedule will be added here.</p>"}`;
+  $("sched").innerHTML=c.schedule?`<h2>Weekly schedule</h2><p>Venue: ${c.venue}</p><div class="tw"><table><thead><tr><th>Week</th><th>Lecture topics</th><th>Assessment</th><th>Reading</th></tr></thead><tbody>${c.schedule.map(r=>`<tr>${r.map(x=>`<td>${x||"–"}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`:"";
+  $("toc-sched").hidden=!c.schedule;
+  document.title=`${c.title} – Tutorial Desk`;
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");
+  if(b&&b.dataset.c!==undefined){location.hash=COURSES[+b.dataset.c].slug}
+});
+const FEES={cur:"GH₵",week:50,month:250,sessions:2,bundles:{2:400,3:700},mode:"in person, online or hybrid (online and in person), as the student prefers"};
+function fees(){
+  $("facts").innerHTML=[`${FEES.sessions} sessions a week per subject`,"In person, online or hybrid",`From ${FEES.cur}${FEES.week} a week`].map(x=>`<li>${x}</li>`).join("");
+  $("fees").innerHTML=`<h2>Fees</h2><p>Each subject has ${FEES.sessions} sessions a week, ${FEES.mode}.</p><div class="plans"><div class="plan"><h3>Weekly</h3><div class="amt">${FEES.cur}${FEES.week}</div><p>per subject, per week</p></div><div class="plan"><h3>Monthly</h3><div class="amt">${FEES.cur}${FEES.month}</div><p>per subject, per month</p></div>${Object.keys(FEES.bundles).map(k=>`<div class="plan promo"><h3>Promo: any ${k} subjects</h3><div class="amt">${FEES.cur}${FEES.bundles[k]}</div><p>per month, instead of ${FEES.cur}${FEES.month*k}</p></div>`).join("")}</div><div class="calc"><label>Subjects <select id="n">${COURSES.map((_,i)=>i+1).map(i=>`<option>${i}</option>`).join("")}</select></label><label>Pay <select id="p"><option value="week">weekly</option><option value="month">monthly</option></select></label><span>Total: <output id="t"></output></span></div>`;
+  const u=()=>{const p=$("p").value,n=+$("n").value,b=p==="month"&&FEES.bundles[n];$("t").textContent=`${FEES.cur}${b||n*FEES[p]} per ${p}${b?" (promo)":""}`};
+  $("n").onchange=$("p").onchange=u;u();
+}
+const PAY={number:"0208017052",name:"Emmenuel Kofi Ofosu"};
+const LEVELS=["Level 100","Level 200","Level 300","Level 400","Other"];
+const price=(p,n)=>p==="month"&&FEES.bundles[n]?FEES.bundles[n]:n*FEES[p];
+function apply(){
+  const opt=a=>a.map(x=>`<option>${x}</option>`).join("");
+  $("apply").innerHTML=`<h2>Apply</h2><p>Fill in your details and choose your courses. Pay by Mobile Money, then send your application with your transaction ID. We email you to confirm your payment.</p>
+<form id="af" class="af">
+<label>Full name<input name="name" required autocomplete="name"></label>
+<label>Phone or WhatsApp number<input name="phone" type="tel" required autocomplete="tel"></label>
+<label>Email<input name="email" type="email" required autocomplete="email"></label>
+<label>Level<select name="level" required><option value="">Choose your level</option>${opt(LEVELS)}</select></label>
+<fieldset><legend>Courses you want to take</legend>${COURSES.map(c=>`<label class="chk"><input type="checkbox" name="course" value="${c.title}">${c.title}</label>`).join("")}</fieldset>
+<label class="full">Want a course that is not listed? Tell us which one (optional)<input name="other"></label>
+<label>Class type<select name="mode">${opt(["In person","Online","Hybrid (online and in person)"])}</select></label>
+<label>Pay for<select name="plan"><option value="week">1 week</option><option value="month">1 month</option></select></label>
+<div class="tot full">Total to pay:<output id="tot"></output></div>
+<div class="paybox full"><b>How to pay</b><p>Send the total by Mobile Money to <b>${PAY.number}</b>, account name <b>${PAY.name}</b>.</p></div>
+<label class="full">Mobile Money transaction ID (from your payment message)<input name="txn" required></label>
+<button class="pay full" type="submit">Send application</button>
+<p class="msg full" id="amsg" role="alert"></p></form>`;
+  const f=$("af");
+  const total=()=>{const d=new FormData(f);$("tot").textContent=`${FEES.cur}${price(d.get("plan"),d.getAll("course").length)}`};
+  f.addEventListener("input",total);total();
+  f.addEventListener("submit",e=>{
+    e.preventDefault();
+    const d=new FormData(f),cs=d.getAll("course");
+    if(!cs.length){$("amsg").textContent="Choose at least one course.";return}
+    const amount=price(d.get("plan"),cs.length),plan=d.get("plan")==="week"?"1 week":"1 month";
+    const body=["New application","","Name: "+d.get("name"),"Phone: "+d.get("phone"),"Email: "+d.get("email"),"Level: "+d.get("level"),"Courses: "+cs.join(", "),"Class type: "+d.get("mode"),"Paying for: "+plan,"Amount paid: "+FEES.cur+amount,"Mobile Money transaction ID: "+d.get("txn"),"Other course wanted: "+(d.get("other")||"none")].join("\n");
+    const href="mailto:"+CONTACT.email+"?subject="+encodeURIComponent("Application: "+d.get("name"))+"&body="+encodeURIComponent(body);
+    f.outerHTML=`<div class="af done"><div class="full"><h3>One more step: send the email</h3><p>Your email app should open with your application filled in. Press send to finish.</p><p>If it did not open, <a href="${href}">tap here</a> or email ${CONTACT.email} with your details and transaction ID.</p><p>We will email you to confirm your payment and share your class details.</p></div></div>`;
+    location.href=href;
+  });
+}
+const CONTACT={phone:"0208017052",email:"desktutorial991@gmail.com"};
+function faq(){
+  const q=[
+   ["Which courses do you teach?",`We teach ${COURSES.map(c=>c.title).join(", ")}. More courses are coming soon.`],
+   ["Will you add more courses?","Yes. More courses are coming soon. If there is a course you want, tell us in the Apply form or contact us."],
+   ["How do the classes work?",`Each subject has ${FEES.sessions} sessions a week. We break every topic into small steps so you understand the concept, and we give you strategies for studying and solving problems.`],
+   ["Can I attend in person or online?","Yes. You can choose in person, online or hybrid, which mixes online and in-person sessions. Pick your class type when you apply."],
+   ["Will you help me prepare for my interim assessment and final exam?","Yes. We solve past questions with you so you know what to expect and how to answer."],
+   ["How much does it cost?",`${FEES.cur}${FEES.week} per subject per week, or ${FEES.cur}${FEES.month} per subject per month. Two subjects cost ${FEES.cur}${FEES.bundles[2]} per month and three subjects cost ${FEES.cur}${FEES.bundles[3]} per month.`],
+   ["Can I take more than one course?","Yes. Tick as many courses as you want in the Apply form and the total updates for you."],
+   ["How do I apply and pay?",`Fill in the Apply form and choose your courses. Pay by Mobile Money to ${PAY.number} (${PAY.name}), then send your application with the transaction ID. We email you to confirm your payment.`],
+   ["I have a question before I pay. Who do I ask?",`Call ${CONTACT.phone} or email ${CONTACT.email}.`]
+  ];
+  $("faq").innerHTML=`<h2>Frequently asked questions</h2>${q.map(x=>`<details><summary>${x[0]}</summary><p>${x[1]}</p></details>`).join("")}`;
+  $("contact").innerHTML=`<h2>Contact</h2><div class="cards"><a href="tel:+233${CONTACT.phone.slice(1)}"><small>Call</small><b>${CONTACT.phone}</b></a><a href="mailto:${CONTACT.email}"><small>Email</small><b>${CONTACT.email}</b></a></div>`;
+}
+fees();apply();faq();
+addEventListener("hashchange",load);load();
+</script>
+</body>
+</html>
